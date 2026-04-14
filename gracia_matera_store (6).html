@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Gracia Matera</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --vd:#1E3A12;   /* verde oscuro base */
+  --vm:#2D5016;   /* verde medio */
+  --vl:#3B6D11;   /* verde claro */
+  --vo:#4A5E2A;   /* verde oliva */
+  --marron:#8B4513;
+  --dorado:#C9982A;
+  --naranja:#C0622A;
+  --crema:#F5F0E8;
+  --blanco:#fff;
+  --texto-claro:rgba(255,255,255,0.75);
+  --borde:rgba(255,255,255,0.12);
+}
+body{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;background:var(--vd);color:var(--blanco);font-size:14px;line-height:1.5}
+
+/* TOP BAR */
+.top{background:var(--naranja);color:#fff;text-align:center;padding:8px 1rem;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+
+/* NAV */
+nav{background:var(--vd);border-bottom:1px solid var(--borde);padding:0 4%;height:68px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200}
+.nav-logo img{height:52px;object-fit:contain}
+.nav-menu{display:flex;gap:2rem;list-style:none;position:absolute;left:50%;transform:translateX(-50%)}
+.nav-menu a,.nav-menu span{color:rgba(255,255,255,0.85);font-size:13px;font-weight:500;text-decoration:none;letter-spacing:.03em;cursor:pointer;transition:color .2s;position:relative}
+.nav-menu a:hover,.nav-menu span:hover{color:#fff}
+.nav-menu li{position:relative}
+.nav-menu li:hover .sub{display:block}
+.sub{display:none;position:absolute;top:calc(100% + 14px);left:0;background:var(--vm);border:1px solid var(--borde);min-width:190px;z-index:300;padding:6px 0}
+.sub a{display:block;padding:9px 16px;font-size:12.5px;color:rgba(255,255,255,0.8);border-bottom:none}
+.sub a:hover{background:var(--vl);color:#fff}
+.nav-right{display:flex;align-items:center;gap:12px}
+.nav-wsp{background:var(--naranja);color:#fff;padding:8px 16px;font-size:12px;font-weight:700;text-decoration:none;letter-spacing:.05em;text-transform:uppercase;border-radius:3px;transition:opacity .2s}
+.nav-wsp:hover{opacity:.85}
+
+/* HERO */
+.hero{position:relative;height:520px;overflow:hidden}
+.slides{display:flex;height:100%;transition:transform .6s ease}
+.slide{min-width:100%;height:100%;position:relative;display:flex;align-items:center}
+.slide-bg{position:absolute;inset:0;background-size:cover;background-position:center}
+.slide-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(20,45,10,.85) 40%,rgba(20,45,10,.3) 100%)}
+.slide-content{position:relative;z-index:2;padding:0 8%;max-width:600px}
+.slide-tag{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--dorado);margin-bottom:14px;display:block}
+.slide-content h1{font-size:2.8rem;font-weight:800;line-height:1.1;margin-bottom:14px;letter-spacing:-.01em;color:#fff}
+.slide-content p{font-size:14px;line-height:1.75;margin-bottom:24px;color:rgba(255,255,255,.75);max-width:440px}
+.btn-dorado{background:var(--dorado);color:#fff;padding:12px 28px;font-size:12px;font-weight:800;text-decoration:none;letter-spacing:.07em;text-transform:uppercase;display:inline-block;border-radius:3px;transition:opacity .2s}
+.btn-dorado:hover{opacity:.85}
+.btn-borde{background:transparent;color:#fff;padding:11px 28px;font-size:12px;font-weight:800;text-decoration:none;letter-spacing:.07em;text-transform:uppercase;display:inline-block;border-radius:3px;border:2px solid rgba(255,255,255,.6);transition:border-color .2s,background .2s;margin-left:12px}
+.btn-borde:hover{border-color:#fff;background:rgba(255,255,255,.1)}
+.h-dots{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:10}
+.dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;transition:background .2s}
+.dot.on{background:var(--dorado)}
+.h-arr{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.25);color:#fff;width:42px;height:42px;border-radius:50%;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;z-index:10;transition:background .2s}
+.h-arr:hover{background:rgba(0,0,0,.45)}
+.h-arr.p{left:18px}
+.h-arr.n2{right:18px}
+
+/* BENE BAR */
+.bene-bar{background:var(--vo);display:flex;justify-content:center;gap:0;border-bottom:1px solid var(--borde)}
+.bene{flex:1;text-align:center;padding:13px 8px;border-right:1px solid var(--borde);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#fff}
+.bene:last-child{border-right:none}
+.bene small{display:block;font-weight:400;color:rgba(255,255,255,.6);font-size:11px;text-transform:none;letter-spacing:0;margin-top:2px}
+
+/* SECCIONES */
+.sec{padding:48px 4%}
+.sec-hd{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:28px}
+.sec-hd h2{font-size:16px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:#fff}
+.sec-hd a{font-size:12px;color:rgba(255,255,255,.5);text-decoration:underline;font-weight:600;letter-spacing:.04em}
+.sec-hd a:hover{color:#fff}
+
+/* GRILLA */
+.grid-5{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+
+/* CARD */
+.card{cursor:pointer;background:var(--vm);border-radius:4px;overflow:hidden;transition:transform .2s}
+.card:hover{transform:translateY(-4px)}
+.card:hover .card-img img{transform:scale(1.05)}
+.card-img{aspect-ratio:1;overflow:hidden;position:relative;background:var(--vl)}
+.card-img img{width:100%;height:100%;object-fit:cover;transition:transform .35s}
+.card-img .ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem;background:var(--vl)}
+.badge-env{position:absolute;top:0;left:0;background:var(--naranja);color:#fff;font-size:10px;font-weight:700;padding:4px 8px;letter-spacing:.04em;text-transform:uppercase;writing-mode:vertical-rl;text-orientation:mixed}
+.badge-new{position:absolute;top:8px;right:8px;background:var(--dorado);color:#fff;font-size:10px;font-weight:700;padding:3px 8px;letter-spacing:.04em;text-transform:uppercase;border-radius:2px}
+.card-body{padding:12px}
+.card-name{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;color:#fff;line-height:1.3}
+.card-desc{font-size:11px;color:rgba(255,255,255,.55);margin-bottom:8px;line-height:1.4}
+.card-price{font-size:14px;font-weight:800;color:var(--dorado)}
+.card-cuotas{font-size:11px;color:rgba(255,255,255,.45);margin-top:2px}
+.card-btn{width:100%;margin-top:10px;background:var(--naranja);color:#fff;border:none;padding:9px;font-size:11px;font-weight:700;cursor:pointer;letter-spacing:.06em;text-transform:uppercase;border-radius:2px;transition:opacity .2s;display:none}
+.card:hover .card-btn{display:block}
+.card-btn:hover{opacity:.85}
+
+/* BANNERS CATS */
+.cat3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:0 4% 48px}
+.cat-b{position:relative;overflow:hidden;cursor:pointer;border-radius:4px;height:240px}
+.cat-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .4s}
+.cat-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,30,5,.85) 0%,rgba(10,30,5,.2) 60%)}
+.cat-b:hover .cat-bg{transform:scale(1.04)}
+.cat-label{position:absolute;bottom:0;left:0;right:0;padding:20px;z-index:2}
+.cat-label h3{font-size:18px;font-weight:800;color:#fff;margin-bottom:4px}
+.cat-label p{font-size:12px;color:rgba(255,255,255,.65);margin-bottom:12px}
+.cat-label .btn-sm{background:var(--naranja);color:#fff;padding:7px 16px;font-size:11px;font-weight:700;text-decoration:none;letter-spacing:.05em;text-transform:uppercase;border-radius:2px;display:inline-block}
+.cat-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:5rem}
+
+/* RESEÑAS */
+.resenas{padding:48px 4%;background:var(--vm)}
+.resenas h2{font-size:16px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;margin-bottom:28px;text-align:center}
+.resenas-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.resena{background:rgba(255,255,255,.06);border:1px solid var(--borde);border-radius:6px;padding:20px}
+.resena-top{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.avatar{width:40px;height:40px;border-radius:50%;background:var(--vo);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#fff;flex-shrink:0}
+.resena-name{font-size:13px;font-weight:700}
+.resena-prod{font-size:11px;color:rgba(255,255,255,.5);margin-top:2px}
+.stars{color:var(--dorado);font-size:13px;margin-bottom:8px}
+.resena p{font-size:12.5px;color:rgba(255,255,255,.75);line-height:1.6}
+
+/* FULL BANNER */
+.full-b{background:var(--vm);padding:56px 8%;display:flex;align-items:center;justify-content:space-between;gap:2rem;border-top:1px solid var(--borde);border-bottom:1px solid var(--borde)}
+.full-b h2{font-size:1.8rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;line-height:1.15;margin-bottom:10px;color:#fff}
+.full-b p{font-size:13px;color:rgba(255,255,255,.65);line-height:1.7;max-width:480px;margin-bottom:16px}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.tag{border:1px solid rgba(255,255,255,.2);padding:5px 12px;font-size:11px;color:rgba(255,255,255,.75);font-weight:600;letter-spacing:.05em;text-transform:uppercase;border-radius:2px}
+.full-b-img{width:180px;height:180px;object-fit:contain;flex-shrink:0;filter:drop-shadow(0 0 20px rgba(201,152,42,0.3))}
+
+/* PERSONALIZACIONES */
+.steps4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px}
+.step-b{border:1px solid var(--borde);border-radius:4px;padding:24px 16px;text-align:center;background:rgba(255,255,255,.04)}
+.step-b .num{font-size:2rem;margin-bottom:10px;color:var(--dorado)}
+.step-b h4{font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px;color:#fff}
+.step-b p{font-size:11px;color:rgba(255,255,255,.55);line-height:1.5}
+
+/* STRIP */
+.strip{background:var(--vo);display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--borde);border-bottom:1px solid var(--borde)}
+.strip-i{padding:16px 8px;text-align:center;border-right:1px solid var(--borde);font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#fff}
+.strip-i:last-child{border-right:none}
+
+/* NOSOTROS */
+.nos{background:var(--vd);padding:48px 8%;display:flex;align-items:center;gap:48px;border-top:1px solid var(--borde)}
+.nos img{width:140px;height:140px;object-fit:contain;flex-shrink:0;filter:drop-shadow(0 0 16px rgba(201,152,42,0.25))}
+.nos h2{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;color:#fff}
+.nos p{font-size:13px;color:rgba(255,255,255,.65);line-height:1.8;max-width:600px}
+.nos-tags{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.nos-tag{border:1px solid var(--borde);padding:5px 10px;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,255,255,.75);border-radius:2px}
+
+/* REDES */
+.redes{padding:36px 4%;text-align:center;border-top:1px solid var(--borde)}
+.redes h3{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;margin-bottom:16px;color:#fff}
+.redes-row{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.red-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border:1px solid var(--borde);font-size:12px;font-weight:600;text-decoration:none;color:rgba(255,255,255,.8);letter-spacing:.03em;border-radius:3px;transition:border-color .2s,color .2s,background .2s}
+.red-btn:hover{border-color:var(--dorado);color:#fff;background:rgba(201,152,42,.1)}
+
+/* NEWSLETTER */
+.newsletter{background:var(--vo);padding:36px 8%;display:flex;align-items:center;justify-content:space-between;gap:2rem;border-top:1px solid var(--borde)}
+.newsletter h3{font-size:20px;font-weight:800;color:#fff}
+.newsletter p{font-size:13px;color:rgba(255,255,255,.65);margin-top:4px}
+.nl-form{display:flex;gap:8px}
+.nl-form input{background:rgba(255,255,255,.1);border:1px solid var(--borde);color:#fff;padding:10px 16px;font-size:13px;border-radius:3px;width:280px;outline:none}
+.nl-form input::placeholder{color:rgba(255,255,255,.4)}
+.nl-form input:focus{border-color:var(--dorado)}
+.nl-form button{background:var(--dorado);color:#fff;border:none;padding:10px 20px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;border-radius:3px}
+
+/* FOOTER */
+.foot{background:var(--vd);border-top:1px solid var(--borde);padding:44px 4%;display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:2rem}
+.foot h4{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;margin-bottom:14px;color:rgba(255,255,255,.5)}
+.foot a{display:block;font-size:13px;color:rgba(255,255,255,.65);text-decoration:none;margin-bottom:8px;transition:color .2s}
+.foot a:hover{color:#fff}
+.foot p{font-size:13px;color:rgba(255,255,255,.55);line-height:1.7}
+.foot-logo img{height:54px;object-fit:contain;margin-bottom:12px;filter:drop-shadow(0 0 10px rgba(201,152,42,.2))}
+.foot-soc{display:flex;gap:12px;margin-top:16px}
+.foot-soc a{font-size:20px;opacity:.7;transition:opacity .2s}
+.foot-soc a:hover{opacity:1}
+.foot-bot{background:#0F2008;text-align:center;padding:14px;font-size:11px;color:rgba(255,255,255,.3);letter-spacing:.04em;border-top:1px solid var(--borde)}
+
+@media(max-width:900px){
+  .grid-5{grid-template-columns:repeat(2,1fr)}
+  .grid-4{grid-template-columns:repeat(2,1fr)}
+  .cat3,.steps4,.resenas-grid{grid-template-columns:1fr}
+  .full-b,.nos,.newsletter{flex-direction:column;padding:36px 5%}
+  .strip{grid-template-columns:1fr 1fr}
+  .bene-bar{flex-wrap:wrap}
+  .bene{min-width:50%}
+  .foot{grid-template-columns:1fr 1fr}
+  .nav-menu{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="top">ENVÍO GRATIS A TODO EL PAÍS &nbsp;·&nbsp; PERSONALIZACIONES CON LÁSER &nbsp;·&nbsp; ESCRIBINOS POR WHATSAPP</div>
+
+<nav>
+  <div class="nav-logo"><img src="https://i.ibb.co/HLX4TkHw/Logo-de-Gracia-Matera.png" alt="Gracia Matera"/></div>
+  <ul class="nav-menu">
+    <li><span>Productos ▾</span>
+      <div class="sub">
+        <a href="#mates">Mates</a>
+        <a href="#accesorios">Yerbas</a>
+        <a href="#accesorios">Termos</a>
+        <a href="#accesorios">Bombillas</a>
+        <a href="#accesorios">Kits regalo</a>
+        <a href="#personalizaciones">Personalizados</a>
+      </div>
+    </li>
+    <li><a href="#mayorista">Mayorista</a></li>
+    <li><a href="#personalizaciones">Personalizaciones</a></li>
+    <li><a href="#nosotros">Quiénes somos</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="https://wa.me/5491158844937" class="nav-wsp" target="_blank">💬 Escribinos</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="slides" id="slides">
+    <div class="slide">
+      <div class="slide-bg" style="background-image:url('https://i.ibb.co/gFLpfN1q/b766382a0379faaa225f089fa361d058.jpg')"></div>
+      <div class="slide-content">
+        <span class="slide-tag">Cultura del mate</span>
+        <h1>El mate es una forma de vivir el momento.</h1>
+        <p>Elegimos cada producto con criterio y pasión. Todo lo que ofrecemos, lo tomaríamos nosotros mismos.</p>
+        <a href="#mates" class="btn-dorado">Ver mates</a>
+        <a href="#mayorista" class="btn-borde">Mayorista</a>
+      </div>
+    </div>
+    <div class="slide">
+      <div class="slide-bg" style="background-image:url('https://i.ibb.co/3mNX5FFf/3cb798243c42afdc26c2a7e207a014a4.jpg')"></div>
+      <div class="slide-content">
+        <span class="slide-tag">Personalizaciones</span>
+        <h1>Tu nombre grabado para siempre.</h1>
+        <p>Grabado láser de precisión en mates y termos. Regalos únicos para personas únicas.</p>
+        <a href="#personalizaciones" class="btn-dorado">Personalizar</a>
+      </div>
+    </div>
+    <div class="slide">
+      <div class="slide-bg" style="background-image:url('https://i.ibb.co/SFHKpLq/pexels-alex-dos-santos-305643819-28832120.jpg')"></div>
+      <div class="slide-content">
+        <span class="slide-tag">Mayorista</span>
+        <h1>Provisión mensual para tu empresa o club.</h1>
+        <p>Trato directo, entrega recurrente. Sin intermediarios, sin complicaciones.</p>
+        <a href="#mayorista" class="btn-dorado">Consultar</a>
+      </div>
+    </div>
+    <div class="slide">
+      <div class="slide-bg" style="background-image:url('https://i.ibb.co/Kxk9WCK3/alexandre-debieve-j-DCNQ3p-Vyaw-unsplash.jpg')"></div>
+      <div class="slide-content">
+        <span class="slide-tag">Kits regalo</span>
+        <h1>El regalo perfecto para un matero.</h1>
+        <p>Armamos kits completos con mate, bombilla, yerba y termo. Ideales para regalar.</p>
+        <a href="#accesorios" class="btn-dorado">Ver kits</a>
+      </div>
+    </div>
+  </div>
+  <button class="h-arr p" onclick="mv(-1)">‹</button>
+  <button class="h-arr n2" onclick="mv(1)">›</button>
+  <div class="h-dots">
+    <div class="dot on" onclick="go(0)"></div>
+    <div class="dot" onclick="go(1)"></div>
+    <div class="dot" onclick="go(2)"></div>
+    <div class="dot" onclick="go(3)"></div>
+  </div>
+</div>
+
+<!-- BENE BAR -->
+<div class="bene-bar">
+  <div class="bene">🚚 Envío gratis<small>A todo el país</small></div>
+  <div class="bene">✍️ Personalizamos<small>Con grabado láser</small></div>
+  <div class="bene">🧉 Cultura matera<small>Pasión en cada producto</small></div>
+  <div class="bene">💬 Escribinos<small>Respondemos rápido</small></div>
+</div>
+
+<!-- MATES -->
+<section class="sec" id="mates">
+  <div class="sec-hd">
+    <h2>Los más vendidos</h2>
+    <a href="#contacto">Ver todos →</a>
+  </div>
+  <div class="grid-5">
+    <div class="card">
+      <div class="card-img"><img src="https://i.ibb.co/DDY4Rn7p/Whats-App-Image-2026-04-07-at-2-05-00-AM.jpg" alt="Ranchero"/><span class="badge-env">Envío gratis</span><span class="badge-new">Nuevo</span></div>
+      <div class="card-body">
+        <p class="card-name">Ranchero</p>
+        <p class="card-desc">Madera pintada a mano, combinación natural y blanco.</p>
+        <p class="card-price">$24.000</p>
+        <button class="card-btn" onclick="window.open('https://wa.me/5491158844937?text=Hola! Me interesa el Ranchero $24.000','_blank')">Comprar</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img"><img src="https://i.ibb.co/27DQRvCG/Whats-App-Image-2026-04-07-at-1-00-18-AM.jpg" alt="Torpedo"/><span class="badge-env">Envío gratis</span></div>
+      <div class="card-body">
+        <p class="card-name">Torpedo</p>
+        <p class="card-desc">Cuero negro con aro de acero inoxidable.</p>
+        <p class="card-price">$24.000</p>
+        <button class="card-btn" onclick="window.open('https://wa.me/5491158844937?text=Hola! Me interesa el Torpedo $24.000','_blank')">Comprar</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img"><img src="https://i.ibb.co/RTFR3b5s/Whats-App-Image-2026-04-07-at-1-00-17-AM-2.jpg" alt="Camionero"/><span class="badge-env">Envío gratis</span></div>
+      <div class="card-body">
+        <p class="card-name">Camionero madera laqueado</p>
+        <p class="card-desc">Madera torneada con aro de acero. Gran capacidad.</p>
+        <p class="card-price">$17.000</p>
+        <button class="card-btn" onclick="window.open('https://wa.me/5491158844937?text=Hola! Me interesa el Camionero Madera $17.000','_blank')">Comprar</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img"><img src="https://i.ibb.co/6JqbM393/Whats-App-Image-2026-04-07-at-1-00-17-AM-1.jpg" alt="Camionero calabaza"/><span class="badge-env">Envío gratis</span></div>
+      <div class="card-body">
+        <p class="card-name">Camionero calabaza</p>
+        <p class="card-desc">Cuero negro con base en estrella. Clásico y firme.</p>
+        <p class="card-price">$20.000</p>
+        <button class="card-btn" onclick="window.open('https://wa.me/5491158844937?text=Hola! Me interesa el Camionero Calabaza $20.000','_blank')">Comprar</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img"><img src="https://i.ibb.co/TMvxznkq/Whats-App-Image-2026-04-07-at-1-00-17-AM.jpg" alt="Imperial"/><span class="badge-env">Envío gratis</span></div>
+      <div class="card-body">
+        <p class="card-name">Imperial calabaza</p>
+        <p class="card-desc">Cuero negro con virola grabada dorada.</p>
+        <p class="card-price">$25.000</p>
+        <button class="card-btn" onclick="window.open('https://wa.me/5491158844937?text=Hola! Me interesa el Imperial Calabaza $25.000','_blank')">Comprar</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BANNERS CATS -->
+<div class="cat3">
+  <div class="cat-b">
+    <div class="cat-bg" style="background-image:url('https://i.ibb.co/6JqbM393/Whats-App-Image-2026-04-07-at-1-00-17-AM-1.jpg')"></div>
+    <div class="cat-label"><h3>Kits regalo</h3><p>El regalo perfecto para un matero</p><a href="#contacto" class="btn-sm">Ver más</a></div>
+  </div>
+  <div class="cat-b">
+    <div class="cat-bg" style="background-image:url('https://i.ibb.co/RTFR3b5s/Whats-App-Image-2026-04-07-at-1-00-17-AM-2.jpg')"></div>
+    <div class="cat-label"><h3>Termos</h3><p>Completá tu equipo matera</p><a href="#accesorios" class="btn-sm">Ver más</a></div>
+  </div>
+  <div class="cat-b">
+    <div class="cat-bg" style="background-image:url('https://i.ibb.co/TMvxznkq/Whats-App-Image-2026-04-07-at-1-00-17-AM.jpg')"></div>
+    <div class="cat-label"><h3>Bombillas</h3><p>Calidad que se siente en cada cebada</p><a href="#accesorios" class="btn-sm">Ver más</a></div>
+  </div>
+</div>
+
+<!-- ACCESORIOS -->
+<section class="sec" id="accesorios" style="background:var(--vm);border-top:1px solid var(--borde)">
+  <div class="sec-hd"><h2>Accesorios</h2></div>
+  <div class="grid-4">
+    <div class="card"><div class="card-img"><div class="ph" style="background:var(--vd);color:var(--dorado);font-size:3rem;font-weight:800;letter-spacing:.05em">YERBA</div><span class="badge-env">Envío gratis</span></div><div class="card-body"><p class="card-name">Blend serrano premium</p><p class="card-desc">Suave y aromática. A granel para mayoristas.</p><p class="card-price">Consultar precio</p><button class="card-btn" onclick="window.open('https://wa.me/5491158844937?text=Hola! Quiero consultar por yerbas al por mayor','_blank')">Consultar</button></div></div>
+    <div class="card"><div class="card-img"><div class="ph" style="background:var(--vd);color:var(--dorado);font-size:3rem;font-weight:800">TERMO</div><span class="badge-env">Envío gratis</span></div><div class="card-body"><p class="card-name">Termo acero doble pared 1L</p><p class="card-desc">12 horas de calor. Varios colores disponibles.</p><p class="card-price">Consultar precio</p><button class="card-btn" onclick="window.open('https://wa.me/5491158844937?text=Hola! Quiero consultar por termos','_blank')">Consultar</button></div></div>
+    <div class="card"><div class="card-img"><div class="ph" style="background:var(--vd);color:var(--dorado);font-size:2.5rem;font-weight:800">BOMBILLA</div><span class="badge-env">Envío gratis</span></div><div class="card-body"><p class="card-name">Bombilla espirala</p><p class="card-desc">Acero inoxidable. Anti-taponamiento.</p><p class="card-price">$5.000</p><p class="card-cuotas">3 x $1.667 sin interés</p><button class="card-btn" onclick="window.open('https://wa.me/5491158844937?text=Hola! Me interesa la Bombilla Espirala $5.000','_blank')">Comprar</button></div></div>
+    <div class="card"><div class="card-img"><div class="ph" style="background:var(--vd);color:var(--dorado);font-size:3rem;font-weight:800">KIT</div><span class="badge-env">Envío gratis</span></div><div class="card-body"><p class="card-name">Kit iniciación matera</p><p class="card-desc">Mate + bombilla + yerba + termo.</p><p class="card-price">Consultar precio</p><button class="card-btn" onclick="window.open('https://wa.me/5491158844937?text=Hola! Quiero armar un kit matera','_blank')">Consultar</button></div></div>
+  </div>
+</section>
+
+<!-- STRIP -->
+<div class="strip">
+  <div class="strip-i">🚚 Envíos a todo el país</div>
+  <div class="strip-i">💸 10% off por transferencia</div>
+  <div class="strip-i">💳 3 & 6 cuotas sin interés</div>
+  <div class="strip-i">💬 ¡Escribinos tu consulta!</div>
+</div>
+
+<!-- RESEÑAS -->
+<div class="resenas">
+  <h2>Lo que dicen nuestros clientes</h2>
+  <div class="resenas-grid">
+    <div class="resena">
+      <div class="resena-top"><div class="avatar">M</div><div><div class="resena-name">Martina G.</div><div class="resena-prod">Mate Ranchero Premium</div></div></div>
+      <div class="stars">★★★★★</div>
+      <p>Hermoso mate, llegó perfecto y muy bien embalado. La calidad es increíble, lo recomiendo totalmente.</p>
+    </div>
+    <div class="resena">
+      <div class="resena-top"><div class="avatar">F</div><div><div class="resena-name">Federico R.</div><div class="resena-prod">Kit iniciación matera</div></div></div>
+      <div class="stars">★★★★★</div>
+      <p>Lo pedí como regalo y fue un éxito total. Muy buena atención, respondieron rápido y llegó antes de lo esperado.</p>
+    </div>
+    <div class="resena">
+      <div class="resena-top"><div class="avatar">L</div><div><div class="resena-name">Laura S.</div><div class="resena-prod">Mate Imperial</div></div></div>
+      <div class="stars">★★★★★</div>
+      <p>Excelente producto y atención personalizada. Sin dudas vuelvo a comprar. El mate es precioso.</p>
+    </div>
+  </div>
+</div>
+
+<!-- MAYORISTA -->
+<div class="full-b" id="mayorista">
+  <div>
+    <h2>Mayorista para empresas y clubes</h2>
+    <p>La yerba es lo que se consume todos los meses. Somos el proveedor que se ocupa de todo para que vos no tengas que pensar en eso. Trato directo, sin intermediarios.</p>
+    <div class="tags">
+      <span class="tag">🏢 Oficinas</span>
+      <span class="tag">⚽ Clubes</span>
+      <span class="tag">📦 Entrega recurrente</span>
+      <span class="tag">🤝 Trato directo</span>
+    </div>
+    <a href="https://wa.me/5491158844937" class="btn-dorado" target="_blank">Consultar precio mayorista</a>
+  </div>
+  <img src="https://i.ibb.co/HLX4TkHw/Logo-de-Gracia-Matera.png" class="full-b-img" alt="logo"/>
+</div>
+
+<!-- PERSONALIZACIONES -->
+<section class="sec" id="personalizaciones">
+  <div class="sec-hd">
+    <h2>Personalizaciones con láser</h2>
+    <a href="https://wa.me/5491100000000" class="btn-dorado" style="font-size:11px;padding:8px 16px" target="_blank">Consultar precio</a>
+  </div>
+  <div class="steps4">
+    <div class="step-b"><div class="num">①</div><h4>Elegís el producto</h4><p>Mate, termo o accesorio del catálogo</p></div>
+    <div class="step-b"><div class="num">②</div><h4>Nos mandás el diseño</h4><p>Nombre, frase o logo por WhatsApp</p></div>
+    <div class="step-b"><div class="num">③</div><h4>Lo grabamos</h4><p>Láser de precisión, resultado prolijo</p></div>
+    <div class="step-b"><div class="num">④</div><h4>Lo recibís en casa</h4><p>Envíos a todo el país</p></div>
+  </div>
+</section>
+
+<!-- NOSOTROS -->
+<div class="nos" id="nosotros">
+  <img src="https://i.ibb.co/HLX4TkHw/Logo-de-Gracia-Matera.png" alt="Gracia Matera"/>
+  <div>
+    <h2>No vendemos productos. Compartimos una pasión.</h2>
+    <p>Gracia Matera nació del amor genuino por la cultura del mate. Por el ritual, la pausa, la ronda. Cada cosa que ofrecemos la elegimos porque nosotros mismos la usaríamos. Nuestro propósito es trasladar ese amor a cada persona que confía en nosotros.</p>
+    <div class="nos-tags">
+      <span class="nos-tag">Pasión por el mate</span>
+      <span class="nos-tag">Calidad elegida</span>
+      <span class="nos-tag">Envíos a todo el país</span>
+      <span class="nos-tag">Atención personalizada</span>
+    </div>
+  </div>
+</div>
+
+<!-- REDES -->
+<div class="redes">
+  <h3>Seguinos — contenido todos los días</h3>
+  <div class="redes-row">
+    <a href="https://instagram.com/graciamatera_oficial" class="red-btn" target="_blank">📸 Instagram @graciamatera_oficial</a>
+    <a href="https://tiktok.com/@graciamatera" class="red-btn" target="_blank">🎵 TikTok @graciamatera</a>
+    <a href="https://wa.me/5491100000000" class="red-btn" target="_blank">💬 Canal de WhatsApp</a>
+  </div>
+</div>
+
+<!-- NEWSLETTER -->
+<div class="newsletter">
+  <div>
+    <h3>Newsletter</h3>
+    <p>Registrate y recibí nuestras ofertas exclusivas.</p>
+  </div>
+  <div class="nl-form">
+    <input type="email" placeholder="Ingresá tu email..."/>
+    <button>Enviar</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="foot" id="contacto">
+  <div>
+    <div class="foot-logo"><img src="https://i.ibb.co/HLX4TkHw/Logo-de-Gracia-Matera.png" alt="Gracia Matera"/></div>
+    <p>Amantes de la cultura matera. Todo lo que ofrecemos nació de ese amor.</p>
+    <div class="foot-soc">
+      <a href="https://instagram.com/graciamatera_oficial" target="_blank">📸</a>
+      <a href="https://tiktok.com/@graciamatera" target="_blank">🎵</a>
+      <a href="https://wa.me/5491100000000" target="_blank">💬</a>
+    </div>
+  </div>
+  <div>
+    <h4>Productos</h4>
+    <a href="#mates">Mates</a>
+    <a href="#accesorios">Yerbas</a>
+    <a href="#accesorios">Termos</a>
+    <a href="#accesorios">Bombillas</a>
+    <a href="#accesorios">Kits regalo</a>
+    <a href="#personalizaciones">Personalizados</a>
+  </div>
+  <div>
+    <h4>Información</h4>
+    <a href="#mayorista">Mayorista</a>
+    <a href="#nosotros">Quiénes somos</a>
+    <a href="#personalizaciones">¿Cómo personalizar?</a>
+    <a href="#contacto">Contacto</a>
+  </div>
+  <div>
+    <h4>Contacto</h4>
+    <a href="https://wa.me/5491100000000" target="_blank">💬 WhatsApp</a>
+    <a href="https://instagram.com/graciamatera_oficial" target="_blank">📸 @graciamatera_oficial</a>
+    <a href="https://tiktok.com/@graciamatera" target="_blank">🎵 TikTok</a>
+    <a href="mailto:graciamatera34@gmail.com">✉️ graciamatera34@gmail.com</a>
+    <a>📍 Zona Norte, Buenos Aires</a>
+  </div>
+</div>
+<div class="foot-bot">© 2025 Gracia Matera — Todos los derechos reservados</div>
+
+<script>
+let c=0;const sl=document.getElementById('slides');const dots=document.querySelectorAll('.dot');
+function go(n){c=n;sl.style.transform=`translateX(-${c*100}%)`;dots.forEach((d,i)=>d.classList.toggle('on',i===c))}
+function mv(d){go((c+d+4)%4)}
+setInterval(()=>mv(1),5000);
+</script>
+</body>
+</html>
